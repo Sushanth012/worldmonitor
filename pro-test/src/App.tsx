@@ -408,7 +408,7 @@ const WhyUpgrade = () => {
 };
 
 /* ─── 5. Live Dashboard Embed (current) ─── */
-const LivePreview = () => (
+const LivePreview = () => { const [activeTab, setActiveTab] = useState<'world'|'tech'|'finance'>('world'); const tabSrc = activeTab === 'tech' ? 'https://tech.worldmonitor.app?alert=false' : activeTab === 'finance' ? 'https://finance.worldmonitor.app?alert=false' : 'https://worldmonitor.app?alert=false'; return (
   <section className="px-6 py-16">
     <div className="max-w-6xl mx-auto">
       <div className="relative rounded-lg overflow-hidden border border-wm-border shadow-2xl shadow-wm-green/5">
@@ -428,14 +428,14 @@ const LivePreview = () => (
             {t('livePreview.openFullScreen')} <ExternalLink className="w-3 h-3" aria-hidden="true" />
           </a>
         </div>
-        <div className="relative aspect-[16/9] bg-black">
+        <div className="flex gap-2 mb-2"><button onClick={() => setActiveTab('world')} className={`px-3 py-1 text-xs font-mono rounded border ${activeTab === 'world' ? 'border-wm-green text-wm-green bg-wm-green/10' : 'border-wm-border text-wm-muted hover:border-wm-text'}`}>World</button><button onClick={() => setActiveTab('tech')} className={`px-3 py-1 text-xs font-mono rounded border ${activeTab === 'tech' ? 'border-wm-green text-wm-green bg-wm-green/10' : 'border-wm-border text-wm-muted hover:border-wm-text'}`}>Tech</button><button onClick={() => setActiveTab('finance')} className={`px-3 py-1 text-xs font-mono rounded border ${activeTab === 'finance' ? 'border-wm-green text-wm-green bg-wm-green/10' : 'border-wm-border text-wm-muted hover:border-wm-text'}`}>Finance</button></div><div className="flex gap-2 mb-2"><button onClick={() => setActiveTab('world')} className={`px-3 py-1 text-xs font-mono rounded border ${activeTab === 'world' ? 'border-wm-green text-wm-green bg-wm-green/10' : 'border-wm-border text-wm-muted hover:border-wm-text'}`}>World</button><button onClick={() => setActiveTab('tech')} className={`px-3 py-1 text-xs font-mono rounded border ${activeTab === 'tech' ? 'border-wm-green text-wm-green bg-wm-green/10' : 'border-wm-border text-wm-muted hover:border-wm-text'}`}>Tech</button><button onClick={() => setActiveTab('finance')} className={`px-3 py-1 text-xs font-mono rounded border ${activeTab === 'finance' ? 'border-wm-green text-wm-green bg-wm-green/10' : 'border-wm-border text-wm-muted hover:border-wm-text'}`}>Finance</button></div><div className="relative aspect-[16/9] bg-black">
           <img
             src={dashboardFallback}
             alt="World Monitor Dashboard"
             className="absolute inset-0 w-full h-full object-cover"
           />
           <iframe
-            src="https://worldmonitor.app?alert=false"
+            src={tabSrc}
             title={t('livePreview.iframeTitle')}
             className="relative w-full h-full border-0"
             loading="lazy"
@@ -460,6 +460,7 @@ const LivePreview = () => (
     </div>
   </section>
 );
+                           };
 
 /* ─── 6. Source Marquee (current) ─── */
 const SourceMarquee = () => {
